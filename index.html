@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Home</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <style>
+      .d-none {
+        display: none;
+      }
+      #countryId {
+        max-height: 300px;
+        overflow-y: auto;
+      }
+    </style>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
+    />
+  </head>
+  <body>
+    <div class="container">
+      <ul class="list-group" id="usrid"></ul>
+      <div class="form-group">
+        <label for="country">Search Country</label>
+        <input
+          type="email"
+          placeholder="Enter Your Country"
+          value=""
+          class="form-control"
+          id="searchCountry"
+        />
+        <div id="nodatafound"></div>
+        <ul id="countryId" class="d-none list-group"></ul>
+      </div>
+    </div>
+    <script defer>
+      (function () {
+        const countries = [
+          'United States',
+          'Canada',
+          'Afghanistan',
+          'Albania',
+          'Algeria',
+          'American Samoa',
+          'Andorra',
+          'Angola',
+          'Anguilla',
+          'Antarctica',
+          'Antigua and/or Barbuda',
+          'Argentina',
+          'Armenia',
+          'Aruba',
+          'Australia',
+          'Austria',
+          'Azerbaijan',
+          'Bahamas',
+          'Bahrain',
+          'Bangladesh',
+          'Barbados',
+          'Belarus',
+          'Belgium',
+          'Belize',
+          'Benin',
+          'Bermuda',
+          'Bhutan',
+          'Bolivia',
+          'Bosnia and Herzegovina',
+          'Botswana',
+          'Bouvet Island',
+          'Brazil',
+          'British Indian Ocean Territory',
+          'Brunei Darussalam',
+          'Bulgaria',
+          'Burkina Faso',
+          'Burundi',
+          'Cambodia',
+          'Cameroon',
+          'Cape Verde',
+          'Cayman Islands',
+          'Central African Republic',
+          'Chad',
+          'Chile',
+          'China',
+          'Christmas Island',
+          'Cocos (Keeling) Islands',
+          'Colombia',
+          'Comoros',
+          'Congo',
+          'Cook Islands',
+          'Costa Rica',
+          'Croatia (Hrvatska)',
+          'Cuba',
+          'Cyprus',
+          'Czech Republic',
+          'Denmark',
+          'Djibouti',
+          'Dominica',
+          'Dominican Republic',
+          'East Timor',
+          'Ecudaor',
+          'Egypt',
+          'El Salvador',
+          'Equatorial Guinea',
+          'Eritrea',
+          'Estonia',
+          'Ethiopia',
+          'Falkland Islands (Malvinas)',
+          'Faroe Islands',
+          'Fiji',
+          'Finland',
+          'France',
+          'France, Metropolitan',
+          'French Guiana',
+          'French Polynesia',
+          'French Southern Territories',
+          'Gabon',
+          'Gambia',
+          'Georgia',
+          'Germany',
+          'Ghana',
+          'Gibraltar',
+          'Greece',
+          'Greenland',
+          'Grenada',
+          'Guadeloupe',
+          'Guam',
+          'Guatemala',
+          'Guinea',
+          'Guinea-Bissau',
+          'Guyana',
+          'Haiti',
+          'Heard and Mc Donald Islands',
+          'Honduras',
+          'Hong Kong',
+          'Hungary',
+          'Iceland',
+          'India',
+          'Indonesia',
+          'Iran (Islamic Republic of)',
+          'Iraq',
+          'Ireland',
+          'Israel',
+          'Italy',
+          'Ivory Coast',
+          'Jamaica',
+          'Japan',
+          'Jordan',
+          'Kazakhstan',
+          'Kenya',
+          'Kiribati',
+          "Korea, Democratic People's Republic of",
+          'Korea, Republic of',
+          'Kosovo',
+          'Kuwait',
+          'Kyrgyzstan',
+          "Lao People's Democratic Republic",
+          'Latvia',
+          'Lebanon',
+          'Lesotho',
+          'Liberia',
+          'Libyan Arab Jamahiriya',
+          'Liechtenstein',
+          'Lithuania',
+          'Luxembourg',
+          'Macau',
+          'Macedonia',
+          'Madagascar',
+          'Malawi',
+          'Malaysia',
+          'Maldives',
+          'Mali',
+          'Malta',
+          'Marshall Islands',
+          'Martinique',
+          'Mauritania',
+          'Mauritius',
+          'Mayotte',
+          'Mexico',
+          'Micronesia, Federated States of',
+          'Moldova, Republic of',
+          'Monaco',
+          'Mongolia',
+          'Montserrat',
+          'Morocco',
+          'Mozambique',
+          'Myanmar',
+          'Namibia',
+          'Nauru',
+          'Nepal',
+          'Netherlands',
+          'Netherlands Antilles',
+          'New Caledonia',
+          'New Zealand',
+          'Nicaragua',
+          'Niger',
+          'Nigeria',
+          'Niue',
+          'Norfork Island',
+          'Northern Mariana Islands',
+          'Norway',
+          'Oman',
+          'Pakistan',
+          'Palau',
+          'Panama',
+          'Papua New Guinea',
+          'Paraguay',
+          'Peru',
+          'Philippines',
+          'Pitcairn',
+          'Poland',
+          'Portugal',
+          'Puerto Rico',
+          'Qatar',
+          'Reunion',
+          'Romania',
+          'Russian Federation',
+          'Rwanda',
+          'Saint Kitts and Nevis',
+          'Saint Lucia',
+          'Saint Vincent and the Grenadines',
+          'Samoa',
+          'San Marino',
+          'Sao Tome and Principe',
+          'Saudi Arabia',
+          'Senegal',
+          'Seychelles',
+          'Sierra Leone',
+          'Singapore',
+          'Slovakia',
+          'Slovenia',
+          'Solomon Islands',
+          'Somalia',
+          'South Africa',
+          'South Georgia South Sandwich Islands',
+          'South Sudan',
+          'Spain',
+          'Sri Lanka',
+          'St. Helena',
+          'St. Pierre and Miquelon',
+          'Sudan',
+          'Suriname',
+          'Svalbarn and Jan Mayen Islands',
+          'Swaziland',
+          'Sweden',
+          'Switzerland',
+          'Syrian Arab Republic',
+          'Taiwan',
+          'Tajikistan',
+          'Tanzania, United Republic of',
+          'Thailand',
+          'Togo',
+          'Tokelau',
+          'Tonga',
+          'Trinidad and Tobago',
+          'Tunisia',
+          'Turkey',
+          'Turkmenistan',
+          'Turks and Caicos Islands',
+          'Tuvalu',
+          'Uganda',
+          'Ukraine',
+          'United Arab Emirates',
+          'United Kingdom',
+          'United States minor outlying islands',
+          'Uruguay',
+          'Uzbekistan',
+          'Vanuatu',
+          'Vatican City State',
+          'Venezuela',
+          'Vietnam',
+          'Virigan Islands (British)',
+          'Virgin Islands (U.S.)',
+          'Wallis and Futuna Islands',
+          'Western Sahara',
+          'Yemen',
+          'Yugoslavia',
+          'Zaire',
+          'Zambia',
+          'Zimbabwe',
+        ];
+        let elementid = document.getElementById('countryId');
+        let outsideData;
+        const countyLoop = (param = '') => {
+          if (param === '') {
+            countries.sort().map((country) => {
+              let li = document.createElement('li');
+              let value = document.createTextNode(country);
+              li.classList.add('list-group-item');
+              li.appendChild(value);
+              li.setAttribute('value', country);
+              return elementid.appendChild(li);
+            });
+          } else {
+            let result = countries.filter((country) => {
+              return (
+                country.slice(0, param.length).toLocaleLowerCase() === param
+              );
+            });
+            outsideData = result;
+            if (result.length === 0) {
+              document.getElementById('countryId').classList.remove('d-none');
+              document.getElementById('nodatafound').innerHTML =
+                'no country found';
+            } else {
+              document.getElementById('nodatafound').innerHTML = '';
+              document.getElementById('countryId').classList.remove('d-none');
+              result.map((country) => {
+                let li = document.createElement('li');
+                li.classList.add('list-group-item');
+                let value = document.createTextNode(country);
+                li.appendChild(value);
+                li.setAttribute('value', country);
+                return elementid.appendChild(li);
+              });
+            }
+          }
+        };
+        document.getElementById('countryId').addEventListener('click', (e) => {
+          document.getElementById('searchCountry').value = e.target.innerText;
+        });
+        document
+          .getElementById('searchCountry')
+          .addEventListener('keyup', (e) => {
+            document.getElementById('countryId').innerHTML = '';
+            if (e.target.value === '') {
+              document.getElementById('nodatafound').innerHTML = '';
+              countyLoop();
+            } else {
+              countyLoop(e.target.value.toLowerCase());
+            }
+          });
+        document.addEventListener('click', () => {
+          if (
+            document
+              .getElementById('countryId')
+              .classList.contains('d-none') === false
+          ) {
+            document.getElementById('countryId').classList.add('d-none');
+          }
+        });
+      })();
+    </script>
+  </body>
+</html>
