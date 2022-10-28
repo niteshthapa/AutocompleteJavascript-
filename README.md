@@ -6,4 +6,4 @@ If there is no match then no countries found message will be shown.I have added 
 ### `Demo`
 
 Runs the app in the development mode.\
-Open [https://web-platform-f1trry.stackblitz.io/](https://web-platform-f1trry.stackblitz.io/) to view it in your browser.
+Open [https://stackblitz.com/edit/bootstrap-5-raqbuq?file=src%2Findex.html](https://stackblitz.com/edit/bootstrap-5-raqbuq?file=src%2Findex.html) to view it in your browser.
